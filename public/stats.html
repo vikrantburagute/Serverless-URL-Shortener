@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Link analytics · URL Shortener</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="card wide">
+    <h1>📊 Link analytics</h1>
+
+    <form id="form">
+      <label for="code">Short code (leave empty with the admin key to list all links)</label>
+      <input id="code" type="text" maxlength="32" placeholder="abc123" autocomplete="off" />
+      <label for="key">Stats key</label>
+      <input id="key" type="password" placeholder="From your private stats link" autocomplete="off" required />
+      <button id="submit" type="submit">View stats</button>
+    </form>
+
+    <p id="error" class="error" role="alert"></p>
+
+    <section id="stats" hidden>
+      <p class="link-meta">
+        <a id="short-link" target="_blank" rel="noopener"></a> → <span id="long-url"></span><br />
+        <span class="muted">Created <span id="created"></span></span>
+      </p>
+
+      <div class="hero-label">Total clicks</div>
+      <div id="total" class="hero-value"></div>
+
+      <h2>Clicks per day, last 30 days</h2>
+      <div id="chart"></div>
+      <details>
+        <summary>Show as table</summary>
+        <table>
+          <thead><tr><th>Day (UTC)</th><th class="num">Clicks</th></tr></thead>
+          <tbody id="daily-table"></tbody>
+        </table>
+      </details>
+
+      <div class="breakdowns">
+        <div><h2>Countries</h2><div id="countries"></div></div>
+        <div><h2>Referrers</h2><div id="referrers"></div></div>
+        <div><h2>Devices</h2><div id="devices"></div></div>
+        <div><h2>Browsers</h2><div id="browsers"></div></div>
+      </div>
+    </section>
+
+    <section id="admin" hidden>
+      <h2>All links</h2>
+      <table>
+        <thead><tr><th>Code</th><th>Destination</th><th>Created</th><th class="num">Clicks</th><th></th></tr></thead>
+        <tbody id="links-table"></tbody>
+      </table>
+    </section>
+
+    <p class="footer"><a href="/">← Shorten a link</a></p>
+  </main>
+
+  <script src="/stats.js"></script>
+</body>
+</html>

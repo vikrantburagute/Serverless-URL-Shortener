@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>🔗 URL Shortener</h1>
+    <form id="form">
+      <label for="url">Long URL</label>
+      <input id="url" type="url" maxlength="2048" placeholder="https://example.com/very/long/link" required />
+      <label for="alias">Custom alias (optional)</label>
+      <input id="alias" type="text" maxlength="32" pattern="[A-Za-z0-9_\-]{3,32}" placeholder="my-link" />
+      <button id="submit" type="submit">Shorten</button>
+    </form>
+
+    <div id="result" hidden>
+      <h2>Your short link</h2>
+      <div class="row">
+        <a id="short" target="_blank" rel="noopener"></a>
+        <button id="copy" class="small" type="button">Copy</button>
+      </div>
+      <p class="hint">
+        📊 <a id="stats-link" target="_blank" rel="noopener">View click analytics</a>.
+        Bookmark this link: it contains your private stats key and can't be recovered.
+      </p>
+    </div>
+
+    <p id="error" class="error" role="alert"></p>
+
+    <p class="footer"><a href="/stats">Look up link stats</a></p>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

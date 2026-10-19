@@ -1,0 +1,30 @@
+{
+  "name": "url-shortener",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  // Frontend files in ./public are served directly; everything else hits the Worker.
+  "assets": {
+    "directory": "./public"
+  },
+  // Links and click analytics. Schema lives in ./migrations.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "url-shortener-db",
+      "database_id": "7d988241-0e68-4c6a-8630-99334debb1cc"
+    }
+  ],
+  // Best-effort per-IP limit on click recording. Strict limits for creating links
+  // and viewing stats are counted in D1 instead (see RATE_LIMITS in src/index.js).
+  "ratelimits": [
+    { "name": "CLICK_LIMITER", "namespace_id": "1002", "simple": { "limit": 60, "period": 60 } }
+  ],
+  // Hourly cleanup of expired rate limit counters.
+  "triggers": {
+    "crons": ["0 * * * *"]
+  },
+  "vars": {
+    // Global cap on new links per day, so a botnet can't burn through the free tier.
+    "DAILY_LINK_LIMIT": "500"
+  }
+}
